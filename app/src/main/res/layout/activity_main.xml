@@ -79,5 +79,22 @@
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintTop_toBottomOf="@+id/Username" />
 
+     <TextView
+         android:id="@+id/textView4"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="4dp"
+         android:layout_marginEnd="4dp"
+         android:autoLink="web"
+         android:linksClickable="true"
+         android:text="Non hai un account?"
+         android:textColor="#7E7EBA"
+         android:textColorHighlight="#020202"
+         android:textColorHint="#FFFCFC"
+         android:textColorLink="#FD0000"
+         android:textSize="24sp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/Password" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
