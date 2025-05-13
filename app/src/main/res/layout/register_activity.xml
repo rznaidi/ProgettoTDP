@@ -87,9 +87,12 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="48dp"
         android:text="Registrati"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#4E7FA6"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
