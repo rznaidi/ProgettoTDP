@@ -16,7 +16,7 @@
          android:id="@+id/textView3"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:layout_marginStart="12dp"
+         android:layout_marginStart="8dp"
          android:layout_marginTop="16dp"
          android:padding="10dp"
          android:text="Login"
@@ -28,67 +28,12 @@
          app:layout_constraintTop_toTopOf="parent"
          tools:ignore="MissingConstraints" />
 
-     <EditText
-         android:id="@+id/Email"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginStart="8dp"
-         android:layout_marginTop="72dp"
-         android:ellipsize="none"
-         android:ems="10"
-         android:hint="Email..."
-         android:inputType="text"
-         android:textColor="#FFFFFFFF"
-         android:textColorHighlight="#959595"
-         android:textColorHint="#959595"
-         android:textColorLink="#959595"
-         android:textSize="34sp"
-         android:textStyle="bold|italic"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-     <EditText
-         android:id="@+id/Username"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginStart="1dp"
-         android:layout_marginTop="60dp"
-         android:ems="10"
-         android:hint="Username..."
-         android:inputType="text"
-         android:textColor="#FFFFFFFF"
-         android:textColorHighlight="#959595"
-         android:textColorHint="#959595"
-         android:textColorLink="#959595"
-         android:textSize="34sp"
-         android:textStyle="bold|italic"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/Email" />
-
-     <EditText
-         android:id="@+id/Password"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginStart="1dp"
-         android:layout_marginTop="60dp"
-         android:ems="10"
-         android:hint="Password..."
-         android:inputType="text"
-         android:textColor="#FFFFFFFF"
-         android:textColorHighlight="#959595"
-         android:textColorHint="#959595"
-         android:textColorLink="#959595"
-         android:textSize="34sp"
-         android:textStyle="bold|italic"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/Username" />
-
      <TextView
          android:id="@+id/textView4"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_marginTop="4dp"
-         android:layout_marginEnd="4dp"
+         android:layout_marginStart="212dp"
+         android:layout_marginTop="32dp"
          android:autoLink="web"
          android:linksClickable="true"
          android:text="Non hai un account?"
@@ -97,20 +42,84 @@
          android:textColorHint="#FFFCFC"
          android:textColorLink="#FD0000"
          android:textSize="20sp"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/Password" />
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
      <Button
          android:id="@+id/LoginButton"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_marginTop="40dp"
+         android:layout_marginStart="144dp"
+         android:layout_marginTop="72dp"
          android:backgroundTint="#4E7FA6"
          android:text="Accedi"
          android:textColor="#FFFFFF"
          android:textSize="24sp"
-         app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+     <com.google.android.material.textfield.TextInputLayout
+         android:id="@+id/textInputLayout"
+         android:layout_width="378dp"
+         android:layout_height="61dp"
+         android:layout_marginStart="16dp"
+         android:layout_marginTop="80dp"
+         android:textColor="#FFFFFFFF"
+         android:textColorHighlight="#959595"
+         android:textColorHint="#959595"
+         android:textColorLink="#959595"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:fontFamily="@font/roboto"
+              android:hint="Email..."
+              android:textSize="34sp"
+              android:textStyle="bold|italic" />
+     </com.google.android.material.textfield.TextInputLayout>
+
+     <com.google.android.material.textfield.TextInputLayout
+         android:id="@+id/textInputLayout2"
+         android:layout_width="378dp"
+         android:layout_height="61dp"
+         android:layout_marginStart="16dp"
+         android:layout_marginTop="60dp"
+         android:textColor="#FFFFFFFF"
+         android:textColorHighlight="#959595"
+         android:textColorHint="#959595"
+         android:textColorLink="#959595"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Username..."
+              android:textSize="34sp"
+              android:textStyle="bold|italic" />
+     </com.google.android.material.textfield.TextInputLayout>
+
+     <com.google.android.material.textfield.TextInputLayout
+         android:id="@+id/textInputLayout3"
+         android:layout_width="378dp"
+         android:layout_height="61dp"
+         android:layout_marginStart="16dp"
+         android:layout_marginTop="60dp"
+         android:textColor="#FFFFFFFF"
+         android:textColorHighlight="#959595"
+         android:textColorHint="#959595"
+         android:textColorLink="#959595"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Password..."
+              android:textSize="34sp"
+              android:textStyle="bold|italic" />
+     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
