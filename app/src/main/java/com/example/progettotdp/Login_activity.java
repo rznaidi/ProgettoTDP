@@ -71,8 +71,10 @@ public class Login_activity extends AppCompatActivity {
 
                 runOnUiThread(() -> {
                     if ("OK".equals(result)) {
-                        Toast.makeText(this, "Login riuscito!", Toast.LENGTH_SHORT).show();
-                        // Navigazione futura o salvataggio token/sessione
+                        Intent intent = new Intent(this, HomePage_activity.class);
+                        intent.putExtra("username", username);
+                        startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(this, "Login fallito: " + message, Toast.LENGTH_LONG).show();
                     }
