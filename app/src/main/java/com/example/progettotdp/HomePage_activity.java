@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -100,4 +101,16 @@ public class HomePage_activity extends AppCompatActivity {
             }
         }).start();
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1001 && resultCode == RESULT_OK && data != null) {
+            boolean updated = data.getBooleanExtra("updated", false);
+            if (updated) {
+                loadPosts(); // Ricarica la lista dei post aggiornata
+            }
+        }
+    }
+
 }
