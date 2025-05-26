@@ -55,10 +55,11 @@ public class AreaPersonaleActivity extends AppCompatActivity {
                                 posts.add(new Post(
                                         o.getInt("id"),
                                         username,
-                                        o.optString("description", ""),
-                                        o.optString("location", ""),
+                                        o.optString("contenuto", ""),
+                                        o.optString("posizione", ""),
                                         o.optString("immagine_url", "")
                                 ));
+
                             }
                             adapter.notifyDataSetChanged();
                         } else {
