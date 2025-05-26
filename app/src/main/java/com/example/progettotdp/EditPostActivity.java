@@ -1,7 +1,5 @@
 package com.example.progettotdp;
 
-import static android.content.Intent.getIntent;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -62,10 +60,12 @@ public class EditPostActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Toast.makeText(this, "Post aggiornato!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, HomePage_activity.class);
-                    intent.putExtra("username", username);
-                    startActivity(intent);
-                    finish();
+
+                    // Restituisce un risultato alla HomePage
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("updated", true);
+                    setResult(RESULT_OK, resultIntent);
+                    finish();  // chiude l’activity e torna a HomePage_activity
                 },
                 error -> Toast.makeText(this, "Errore aggiornamento: " + error.getMessage(), Toast.LENGTH_LONG).show()
         ) {

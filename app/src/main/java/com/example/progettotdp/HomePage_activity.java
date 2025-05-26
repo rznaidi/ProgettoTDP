@@ -85,7 +85,7 @@ public class HomePage_activity extends AppCompatActivity {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
                     Post post = new Post(
-                            obj.getInt("id"),
+                            obj.getInt("id"),                             // ← Assicurati che `id` sia incluso nella risposta JSON
                             obj.getString("username"),
                             obj.optString("description", ""),
                             obj.optString("location", ""),
@@ -97,10 +97,14 @@ public class HomePage_activity extends AppCompatActivity {
                 runOnUiThread(() -> adapter.updatePosts(newPosts));
 
             } catch (Exception e) {
-                runOnUiThread(() -> Toast.makeText(this, "Errore nel caricamento post: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Errore nel caricamento post: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                );
             }
         }).start();
     }
+
+    // Riceve il risultato dalla modifica post
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -108,9 +112,8 @@ public class HomePage_activity extends AppCompatActivity {
         if (requestCode == 1001 && resultCode == RESULT_OK && data != null) {
             boolean updated = data.getBooleanExtra("updated", false);
             if (updated) {
-                loadPosts(); // Ricarica la lista dei post aggiornata
+                loadPosts(); // 🔁 Ricarica i post aggiornati
             }
         }
     }
-
 }

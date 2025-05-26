@@ -1,5 +1,6 @@
 package com.example.progettotdp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +26,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Post> posts;
-    private String loggedInUsername; // Nuovo campo
+    private String loggedInUsername;
 
     public PostAdapter(Context context, ArrayList<Post> posts, String loggedInUsername) {
         this.context = context;
@@ -43,6 +44,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
         Post post = posts.get(position);
+
         holder.username.setText(post.getUsername());
         holder.text.setText(post.getDescription());
 
@@ -57,6 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             });
         } else {
             holder.location.setVisibility(View.GONE);
+            holder.location.setOnClickListener(null);
         }
 
         // IMAGE
@@ -70,19 +73,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.image.setVisibility(View.GONE);
         }
 
-        // DELETE BUTTON visibile solo al proprietario
-        if (post.getUsername().equals(loggedInUsername)) {
-            holder.deleteButton.setVisibility(View.VISIBLE);
-            holder.deleteButton.setOnClickListener(v -> confirmDelete(post.getId(), position));
-        } else {
-            holder.deleteButton.setVisibility(View.GONE);
-        }
+        boolean isOwner = post.getUsername().equals(loggedInUsername);
+        holder.deleteButton.setVisibility(isOwner ? View.VISIBLE : View.GONE);
+        holder.editButton.setVisibility(isOwner ? View.VISIBLE : View.GONE);
 
-        //EDIT BUTTON visibile solo al proprietario
-        if (post.getUsername().equals(loggedInUsername)) {
-            holder.deleteButton.setVisibility(View.VISIBLE);
-            holder.editButton.setVisibility(View.VISIBLE);
-
+        if (isOwner) {
             holder.deleteButton.setOnClickListener(v -> confirmDelete(post.getId(), position));
 
             holder.editButton.setOnClickListener(v -> {
@@ -91,14 +86,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 intent.putExtra("description", post.getDescription());
                 intent.putExtra("location", post.getLocation());
                 intent.putExtra("image_url", post.getImageUrl());
-                intent.putExtra("username", loggedInUsername); // utile per tornare
-                context.startActivity(intent);
-            });
-        } else {
-            holder.deleteButton.setVisibility(View.GONE);
-            holder.editButton.setVisibility(View.GONE);
-        }
+                intent.putExtra("username", loggedInUsername);
 
+                // Usa startActivityForResult per aggiornare la HomePage
+                if (context instanceof Activity) {
+                    ((Activity) context).startActivityForResult(intent, 1001);
+                }
+            });
+        }
     }
 
     private void confirmDelete(int postId, int position) {

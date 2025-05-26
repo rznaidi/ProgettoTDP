@@ -21,9 +21,10 @@
             android:id="@+id/editTextLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Località (es. Milano, Colosseo...)"
             android:layout_marginTop="12dp"
-            android:inputType="text" />
+            android:hint="Località (es. Milano, Colosseo...)"
+            android:inputType="text"
+            android:minHeight="48dp" />
 
         <ImageView
             android:id="@+id/imageViewPreview"
