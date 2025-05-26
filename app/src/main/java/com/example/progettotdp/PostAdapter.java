@@ -27,11 +27,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private Context context;
     private ArrayList<Post> posts;
     private String loggedInUsername;
+    private boolean isPersonalArea;
 
-    public PostAdapter(Context context, ArrayList<Post> posts, String loggedInUsername) {
+    public PostAdapter(Context context, ArrayList<Post> posts, String loggedInUsername, boolean isPersonalArea) {
         this.context = context;
         this.posts = posts;
         this.loggedInUsername = loggedInUsername;
+        this.isPersonalArea = isPersonalArea;
     }
 
     @NonNull

@@ -40,7 +40,7 @@ public class HomePage_activity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_posts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new PostAdapter(this, postList, username); // Passa username all'adapter
+        adapter = new PostAdapter(this, postList, username, false);
         recyclerView.setAdapter(adapter);
 
         Button logoutButton = findViewById(R.id.LogoutButton);
@@ -54,6 +54,13 @@ public class HomePage_activity extends AppCompatActivity {
         Button createPostButton = findViewById(R.id.CreatePostButton);
         createPostButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomePage_activity.this, CreatePostActivity.class);
+            intent.putExtra("username", username);
+            startActivity(intent);
+        });
+
+        Button personalAreaButton = findViewById(R.id.PersonalAreaButton);
+        personalAreaButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AreaPersonaleActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
         });
@@ -85,7 +92,7 @@ public class HomePage_activity extends AppCompatActivity {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
                     Post post = new Post(
-                            obj.getInt("id"),                             // ← Assicurati che `id` sia incluso nella risposta JSON
+                            obj.getInt("id"),
                             obj.getString("username"),
                             obj.optString("description", ""),
                             obj.optString("location", ""),
@@ -112,7 +119,7 @@ public class HomePage_activity extends AppCompatActivity {
         if (requestCode == 1001 && resultCode == RESULT_OK && data != null) {
             boolean updated = data.getBooleanExtra("updated", false);
             if (updated) {
-                loadPosts(); // 🔁 Ricarica i post aggiornati
+                loadPosts(); //Ricarica i post aggiornati
             }
         }
     }

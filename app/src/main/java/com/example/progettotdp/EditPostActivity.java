@@ -31,22 +31,26 @@ public class EditPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post);
 
+        // Associa viste
         editDescription = findViewById(R.id.editDescription);
         editLocation = findViewById(R.id.editLocation);
         imagePreview = findViewById(R.id.imagePreview);
         updateButton = findViewById(R.id.updateButton);
 
-        // Ricevi dati
+        // Ricezione dati dall’intent
         postId = getIntent().getIntExtra("post_id", -1);
         String desc = getIntent().getStringExtra("description");
         String loc = getIntent().getStringExtra("location");
         imageUrl = getIntent().getStringExtra("image_url");
         username = getIntent().getStringExtra("username");
 
-        // Popola
-        editDescription.setText(desc);
-        editLocation.setText(loc);
-        Glide.with(this).load(imageUrl).into(imagePreview);
+        // Precarica dati
+        editDescription.setText(desc != null ? desc : "");
+        editLocation.setText(loc != null ? loc : "");
+
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(this).load(imageUrl).into(imagePreview);
+        }
 
         updateButton.setOnClickListener(v -> updatePost());
     }
@@ -55,17 +59,22 @@ public class EditPostActivity extends AppCompatActivity {
         String newDesc = editDescription.getText().toString().trim();
         String newLoc = editLocation.getText().toString().trim();
 
+        if (postId == -1) {
+            Toast.makeText(this, "ID post non valido.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String url = "http://10.0.2.2/social-php-backend/api/update_post.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Toast.makeText(this, "Post aggiornato!", Toast.LENGTH_SHORT).show();
 
-                    // Restituisce un risultato alla HomePage
+                    // Torna alla HomePage con segnale di aggiornamento
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("updated", true);
                     setResult(RESULT_OK, resultIntent);
-                    finish();  // chiude l’activity e torna a HomePage_activity
+                    finish();
                 },
                 error -> Toast.makeText(this, "Errore aggiornamento: " + error.getMessage(), Toast.LENGTH_LONG).show()
         ) {
@@ -75,8 +84,10 @@ public class EditPostActivity extends AppCompatActivity {
                 params.put("post_id", String.valueOf(postId));
                 params.put("description", newDesc);
                 params.put("location", newLoc);
+                params.put("username", username);
                 return params;
             }
+
         };
 
         Volley.newRequestQueue(this).add(request);
