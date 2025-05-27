@@ -28,28 +28,37 @@ public class AreaPersonaleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_personale);
 
+        // Ottiene lo username dell'utente passato dalla login o schermata precedente
         username = getIntent().getStringExtra("username");
 
+        // Inizializza la RecyclerView per mostrare i post
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // il boolean true abilita edit+delete per tutti i post mostrati (sono solo suoi)
+        // Inizializza l'adapter per la lista post.
         adapter = new PostAdapter(this, posts, username, true);
         recyclerView.setAdapter(adapter);
 
+        // Carica i post dell'utente dal backend
         loadUserPosts();
     }
 
+    //Recupera i post dell'utente dal backend tramite richiesta POST.
     private void loadUserPosts() {
         String url = "http://10.0.2.2/social-php-backend/api/get_user_posts.php";
 
+        // Richiesta Volley al backend
         StringRequest req = new StringRequest(Request.Method.POST, url,
                 response -> {
                     try {
                         JSONObject json = new JSONObject(response);
                         if (json.getBoolean("success")) {
+                            // Pulisce lista per evitare duplicati
                             posts.clear();
+
                             JSONArray arr = json.getJSONArray("posts");
+
+                            // Itera su ogni post ricevuto e lo aggiunge all'elenco
                             for (int i = 0; i < arr.length(); i++) {
                                 JSONObject o = arr.getJSONObject(i);
                                 posts.add(new Post(
@@ -61,6 +70,7 @@ public class AreaPersonaleActivity extends AppCompatActivity {
                                 ));
 
                             }
+                            // Notifica aggiornamento UI
                             adapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(this, json.getString("message"), Toast.LENGTH_SHORT).show();
@@ -74,19 +84,25 @@ public class AreaPersonaleActivity extends AppCompatActivity {
         ) {
             @Override
             protected Map<String, String> getParams() {
+                // Parametri POST da inviare: solo lo username
                 Map<String, String> params = new HashMap<>();
                 params.put("username", username);
                 return params;
             }
         };
-
+        // Invia la richiesta alla coda Volley
         Volley.newRequestQueue(this).add(req);
     }
 
+    //Metodo chiamato quando si torna da un'altra activity (es. modifica post).
+    //Se il post è stato aggiornato o eliminato, ricarica i dati.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // Codice 1001: ritorno da EditPostActivity o simili
         if (requestCode == 1001 && resultCode == RESULT_OK) {
+            // Ricarica i post aggiornati
             loadUserPosts(); // ricarica lista
         }
     }
